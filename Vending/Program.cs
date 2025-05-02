@@ -7,30 +7,28 @@ class Program
 {
     static void Main()
     {
-        var vm = new VendingMachine();
+        var vm = new SnackDispenser();
 
-        // Инициализация фабрик
         var snackFactory = new SnackFactory();
         var chocolateFactory = new ChocolateBarFactory();
         var drinkFactory = new DrinkFactory();
 
-        // Добавление товаров
         vm.Products.AddRange(new Product[] {
-            snackFactory.CreateProduct("Чипсы Lays", 120m, 8),
-            snackFactory.CreateProduct("Соленые орешки", 90m, 12),
-            chocolateFactory.CreateProduct("Mars", 65m, 15),
-            chocolateFactory.CreateProduct("Snickers", 70m, 10),
-            chocolateFactory.CreateProduct("Twix", 75m, 8),
-            drinkFactory.CreateProduct("Вода BonAqua", 60m, 20),
-            drinkFactory.CreateProduct("Сок Rich", 110m, 8),
-            drinkFactory.CreateProduct("Red Bull", 180m, 5),
-            snackFactory.CreateProduct("Печенье Юбилейное", 85m, 10),
-            drinkFactory.CreateProduct("Pepsi", 95m, 15)
+            snackFactory.CreateProduct("Чипсы Chays", 120, 8),
+            snackFactory.CreateProduct("Сырные орешки", 90, 12),
+            chocolateFactory.CreateProduct("Mars", 65, 15),
+            chocolateFactory.CreateProduct("Snickers", 70, 10),
+            chocolateFactory.CreateProduct("Twix", 75, 8),
+            drinkFactory.CreateProduct("Вода BonAqua", 60, 20),
+            drinkFactory.CreateProduct("Сок Rich", 110, 8),
+            drinkFactory.CreateProduct("Red Bull", 180, 5),
+            snackFactory.CreateProduct("Печенье Юбилейное", 85, 10),
+            drinkFactory.CreateProduct("Pepsi", 95, 15)
         });
 
-        var ui = new ConsoleUI();
+        var ui = new ConsoleDes();
         vm.Attach(ui);
-        vm.Notify();
+        vm.UpdateSD();
 
         while (true)
         {
@@ -38,7 +36,6 @@ class Program
             Console.Write(" Введите сумму (q для выхода): ");
             var input = Console.ReadLine();
 
-            // Проверка на выход
             if (input?.Trim().ToLower() == "q")
             {
                 Console.WriteLine("\n Работа завершена. До свидания!");
@@ -53,7 +50,6 @@ class Program
 
             new InsertMoneyCommand(vm, amount).Execute();
 
-            // Цикл выбора товара с проверкой на выход
             while (true)
             {
                 Console.WriteLine("--------------------------------------");
@@ -62,7 +58,7 @@ class Program
 
                 if (productInput?.Trim().ToLower() == "q")
                 {
-                    vm.Notify();
+                    vm.UpdateSD();
                     break;
                 }
 
@@ -81,8 +77,10 @@ class Program
     public static void ShowError(string message)
     {
         Console.ForegroundColor = ConsoleColor.Red;
+        Console.Beep(300, 500);
+        Console.WriteLine("\n" + new string('=', 40));
         Console.WriteLine(message);
+        Console.WriteLine(new string('=', 40));
         Console.ResetColor();
-        Console.Beep(300, 200); // Добавляем звуковой сигнал
     }
 }

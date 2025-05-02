@@ -8,10 +8,10 @@ namespace Vending.Commands
 {
     public class InsertMoneyCommand : ICommand
     {
-        private VendingMachine _machine;
+        private SnackDispenser _machine;
         private decimal _amount;
 
-        public InsertMoneyCommand(VendingMachine machine, decimal amount)
+        public InsertMoneyCommand(SnackDispenser machine, decimal amount)
         {
             _machine = machine;
             _amount = amount;

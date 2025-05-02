@@ -8,13 +8,13 @@ namespace Vending
 {
     public interface IObserver
     {
-        void Update(VendingMachine machine);
+        void Update(SnackDispenser machine);
     }
 
     public interface ISubject
     {
         void Attach(IObserver observer);
-        void Notify();
+        void UpdateSD();
     }
 
     public interface ICommand

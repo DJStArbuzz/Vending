@@ -7,36 +7,39 @@ using System.Collections.Generic;
 
 namespace Vending
 {
-    public class VendingMachine : ISubject
+    public class SnackDispenser : ISubject
     {
-        private List<IObserver> _observers = new List<IObserver>();
+        private List<IObserver> observers = new List<IObserver>();
         public decimal Balance { get; private set; }
         public List<Product> Products { get; } = new List<Product>();
 
         public void AddBalance(decimal amount)
         {
             Balance += amount;
-            Notify();
+            UpdateSD();
         }
 
         public void DeductBalance(decimal amount)
         {
             Balance -= amount;
-            Notify();
+            UpdateSD();
         }
 
         public void DispenseProduct(Product product)
         {
             product.Quantity--;
-            Notify();
+            UpdateSD();
         }
 
-        public void Attach(IObserver observer) => _observers.Add(observer);
-
-        public void Notify()
+        public void Attach(IObserver observer)
         {
-            foreach (var observer in _observers)
-                observer.Update(this);
+            observers.Add(observer);
+        } 
+
+        public void UpdateSD()
+        {
+            foreach (var obs in observers)
+                obs.Update(this);
         }
     }
 }

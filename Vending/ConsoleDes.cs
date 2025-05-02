@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Vending
 {
-    public class ConsoleUI : IObserver
+    public class ConsoleDes : IObserver
     {
         private const int NameWidth = 25;
         private const int PriceWidth = 10;
         private const int QuantityWidth = 10;
 
         private string CreateSeparator() =>
-            new string('-', NameWidth + PriceWidth + QuantityWidth + 7);
+            new string('-', NameWidth + PriceWidth + QuantityWidth + 16);
 
-        public void Update(VendingMachine machine)
+        public void Update(SnackDispenser machine)
         {
             Console.Clear();
             DrawHeader();
@@ -28,20 +28,20 @@ namespace Vending
         {
             var sep = CreateSeparator();
             Console.WriteLine(sep);
-            Console.WriteLine("|           ВЕНДИНГОВЫЙ АВТОМАТ           |");
+            Console.WriteLine("     |           ВЕНДИНГОВЫЙ АВТОМАТ           |");
             Console.WriteLine(sep);
         }
 
         private void DrawBalance(decimal balance)
         {
-            Console.WriteLine($"\n Текущий баланс: {balance}₽\n");
+            Console.WriteLine($"\n Текущий баланс: {balance}$\n");
         }
 
         private void DrawProductsTable(List<Product> products)
         {
             var sep = CreateSeparator();
             Console.WriteLine(sep);
-            Console.WriteLine($"| {"№",2} | {"Название".PadRight(NameWidth)} | {"Цена".PadLeft(PriceWidth)} | {"Остаток".PadLeft(QuantityWidth)} |");
+            Console.WriteLine($"| {"№",2} | {"Название".PadRight(NameWidth)} | {"Цена".PadLeft(PriceWidth)}  | {"Остаток".PadLeft(QuantityWidth)} |");
             Console.WriteLine(sep);
 
             for (int i = 0; i < products.Count; i++)
@@ -49,7 +49,7 @@ namespace Vending
                 var p = products[i];
                 Console.WriteLine(
                     $"| {i + 1,2} | {p.Name.PadRight(NameWidth)} | " +
-                    $"{p.Price.ToString().PadLeft(PriceWidth)}₽ | " +
+                    $"{p.Price.ToString().PadLeft(PriceWidth)}$ | " +
                     $"{p.Quantity.ToString().PadLeft(QuantityWidth)} |");
             }
             Console.WriteLine(sep + "\n");
