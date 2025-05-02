@@ -81,8 +81,10 @@ class Program
     public static void ShowError(string message)
     {
         Console.ForegroundColor = ConsoleColor.Red;
+        Console.Beep(300, 500);
+        Console.WriteLine("\n" + new string('=', 40));
         Console.WriteLine(message);
+        Console.WriteLine(new string('=', 40));
         Console.ResetColor();
-        Console.Beep(300, 200); // Добавляем звуковой сигнал
     }
 }

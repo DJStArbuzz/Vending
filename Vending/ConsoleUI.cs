@@ -13,7 +13,7 @@ namespace Vending
         private const int QuantityWidth = 10;
 
         private string CreateSeparator() =>
-            new string('-', NameWidth + PriceWidth + QuantityWidth + 7);
+            new string('-', NameWidth + PriceWidth + QuantityWidth + 16);
 
         public void Update(VendingMachine machine)
         {
@@ -34,7 +34,7 @@ namespace Vending
 
         private void DrawBalance(decimal balance)
         {
-            Console.WriteLine($"\n Текущий баланс: {balance}₽\n");
+            Console.WriteLine($"\n Текущий баланс: {balance}$\n");
         }
 
         private void DrawProductsTable(List<Product> products)
@@ -49,7 +49,7 @@ namespace Vending
                 var p = products[i];
                 Console.WriteLine(
                     $"| {i + 1,2} | {p.Name.PadRight(NameWidth)} | " +
-                    $"{p.Price.ToString().PadLeft(PriceWidth)}₽ | " +
+                    $"{p.Price.ToString().PadLeft(PriceWidth)}$ | " +
                     $"{p.Quantity.ToString().PadLeft(QuantityWidth)} |");
             }
             Console.WriteLine(sep + "\n");
